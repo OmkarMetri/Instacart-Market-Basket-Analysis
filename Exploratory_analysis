@@ -1,0 +1,64 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+reading the files
+```{r}
+library(dplyr)
+
+aisles_df <- read.csv("C:\\Users\\Niharika\\Desktop\\da_project\\aisles.csv",TRUE,",")
+departments_df <- read.csv("C:\\Users\\Niharika\\Desktop\\da_project\\departments.csv",TRUE,",")
+order_products_prior_df <- read.csv("C:\\Users\\Niharika\\Desktop\\da_project\\order_products__prior.csv",TRUE,",")
+order_products_train_df <- read.csv("C:\\Users\\Niharika\\Desktop\\da_project\\order_products__train.csv",TRUE,",")
+orders_df <- read.csv("C:\\Users\\Niharika\\Desktop\\da_project\\orders.csv",TRUE,",")
+products_df <- read.csv("C:\\Users\\Niharika\\Desktop\\da_project\\products.csv",TRUE,",")
+
+
+```
+
+
+Let us see how the ordering habit changes with the day of the week
+```{r}
+library(dplyr)
+library(ggplot2)
+dow_freq <-  summarize(subset(group_by(orders_df,order_dow),select=c(order_dow)),count=n())
+ggplot(data=dow_freq, aes(x=factor(order_dow), y=dow_freq$count))+geom_bar(stat = "identity",fill="turquoise")+ggtitle("frequency of orders with respect to day of week")+xlab("Day_of_week")+ylab("Orders")
+
+
+```
+
+we can see from the graph that 0 and 1 correspond to saturday and sunday because generaaly most of the orders are placed on these days.
+Also we can see that the least number of orders are placed on wednesday.
+
+
+Now , let us see how the frequncy of orders change with hour of the day
+```{r}
+
+hour_freq<- table(subset(group_by(orders_df,order_hour_of_day), select=c(order_hour_of_day)))
+barplot(hour_freq,xlab="order_hour",ylab="occurences",col="turquoise",main="frequency of orders with respect to hour of the day")
+```
+From the above bar graph , we can see that most of the orders are placed in the interval between 9am to 5pm, i.e; most of the orders are during the day time.
+
+
+
+
+The below graph shows how the frquency of orders change with day of the week and hour of the day
+```{r}
+order_dow_hour <- summarize(subset(group_by(orders_df,order_dow,order_hour_of_day),select=c(order_dow,order_hour_of_day)),count=n())
+ggplot(data = order_dow_hour, aes(x = factor(order_hour_of_day), y = factor(order_dow))) +geom_tile(aes(fill = count)) + ggtitle("frequency of orders with respect to dow and hour")+ xlab("order_hour_of_day")+ ylab("order_day_of")
+```
+
+
+so we can infer that saturday and sunday daytimes are the times where most of the orders are placed .
+
+
+now let's see how frequently the orders are placed by the users
+
+```{r}
+
+days_prior <- summarize(subset(group_by(subset(orders_df,is.na(days_since_prior_order)==FALSE),days_since_prior_order),select = c(days_since_prior_order)),count=n())
+ggplot(data=days_prior,aes(x=factor(days_since_prior_order),y=days_prior$count))+geom_bar(stat = "identity",fill="#E69F00")+ggtitle("frequency of days since the prior order")+xlab("days_since_prior_order")+ ylab("occurences")
+```
+
+so from the above graph, we can infer that most of the users place their orders after a week and after a month with respect to their prior orders. Also we can see local maximums which are the weekends.
