@@ -2,10 +2,15 @@
 
 ## Attributes of each file
 aisle.csv -> aisle_id, aisle
+
 departments.csv -> department_id, department
+
 order_products_* .csv -> order_id, product_id, add_to_cart_order, reordered 
+
 orders.csv -> order_id, user_id, eval_set, order_number, order_dow, order_hour_of_day, days_since_prior_order
+
 products.csv -> product_id, product_name, aisle_id, department_id
+
 sample_submission.csv -> order_id, products
 
 
