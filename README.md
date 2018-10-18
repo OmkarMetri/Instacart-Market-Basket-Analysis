@@ -27,7 +27,8 @@ These files specify which products were purchased in each order. order_products_
 ### orders.csv
 This file tells to which set (prior, train, test) an order belongs. You are predicting reordered items only for the test set orders. 'order_dow' is the day of week.
 
-### Note: Look into exploratory_analysis(1 & 2) for basic understanding and visualization to realise the market trends.
+#### Note: Look into exploratory_analysis(1 & 2) for basic understanding and visualization to realise the market trends.
+
 
 ## Customer Segmentation
 Customer segmenetation to classify customers according to their different purchases. Since there are thousands of products in the dataset, we will rely on aisles, which represent categories of products. 
