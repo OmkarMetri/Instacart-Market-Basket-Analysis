@@ -26,3 +26,7 @@ These files specify which products were purchased in each order. order_products_
 
 ### orders.csv
 This file tells to which set (prior, train, test) an order belongs. You are predicting reordered items only for the test set orders. 'order_dow' is the day of week. 
+
+
+## YouTube Link
+Link: https://www.youtube.com/watch?v=MkOsllr-HgM
